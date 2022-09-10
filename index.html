@@ -33,7 +33,7 @@
 				        <li><a href="#requirements/goals">Requirements/Goals</a></li>
 				        <li><a href="#ProjectSummary">Development Summary</a></li>
 						<li><a href="#Coding">Work-status</a></li>
-				        <li><a href="#skills">Future Scope</a></li>
+				        <li><a href="#Challenges">Challenges</a></li>
 				    </ul>
 				</nav>
 			</header>
@@ -207,20 +207,29 @@
 	<!-- Coding – Work Status -->
 	<div class="work section second" id="Coding">
 		<div class="container">
-			<h1>Coding/<br>WOrk-Status</h1>
+			<h1>Coding/<br>Work-Status</h1>
 			<p>
 				The current Product as Demoed to the Mentor all the code is checked in. The current product requirements and specifications is as agreed with the Mentor. The details as below:
 				<ul>
 				<li><strong>What got commited</strong>
 					<ol>
-						<li>The styling (look and feel) of the application</li>
-						<li>The single flow with role-based data-hiding</li>
-						<li>The admin features were brought down from the Django administrator level to the application level</li>
-						<li>Inclusion of the publisher role</li>
-						<li>Export of licenses</li>
-						<li>Dashboard visualization</li>
+						<li>The styling (look and feel) of the application.
+						</li>
+						<li>The single flow with role-based data-hiding. <a href="https://github.com/RC-002/GSoCSubmission/blob/patches/flowChange">View Git Patch</a>
+						<li>The admin features were brought down from the Django administrator level to the application level. <a href="https://github.com/RC-002/GSoCSubmission/blob/patches/adminChanges">View Git Patch</a>
+						<li>Inclusion of the publisher role. <a href="https://github.com/RC-002/GSoCSubmission/blob/patches/finalPatch">View Git Patch</a>
+						<li>Export of licenses. <a href="https://github.com/RC-002/GSoCSubmission/blob/patches/export">View Git Patch</a>
+						<li>Dashboard visualization. <a href="https://github.com/RC-002/GSoCSubmission/blob/patches/chartsAndVisualization">View Git Patch</a>
 					</ol>
+				</li><br>
+				<li><strong>What did not commited</strong>
+					<ul>
+						<li>Initial role based-flow design:<br>
+							First check in happened when the product came to a shape that can be demoed.</li>
 
+						<li>Postgres SQL backend implementation:<br>
+							As this was shelved after discussion with the Mentor.</li>
+					</ul>
 				</li>
 				</ul>  
 			  </p>
@@ -228,22 +237,24 @@
 		</div>
 	</div>
 
-	<!-- Technical Skills -->
-	<div class="skills section second" id="skills">
+	<!-- Challenges -->
+	<div class="work section second" id="Challenges">
 		<div class="container">
-			<h1>Technical<br>Skills</h1>
-			<ul class="skill-list list-flat">
-				<li>Web Technology</li>
-				<li>HTML / CSS / SASS / PHP / Javascript</li>
+			<h1>Challenges<br>and my Solutions</h1>
+			<p>
+				<ul>
+				<li><strong>Multiple roles for different users:</strong> The initial prototype involved two separate flows- one for the approver and the other for uploader. The solution involved merging the flows.
+The challenge involved masking of the template and data that the user is not authorized to view in the flow. Hiding the other data and showing the details the user is authorized to see, was done entirely in the front-end with a Django-validation to check if the screen is being manually accessed. </li>
+
+				<li><strong>Operations Tracking:</strong> We have a feature to view all the changes the licenses document has gone through in its life cycle. 
+The problem involved in handling concurrent updates of the same license. The solution involved considering the first update transaction and blocking the other transactions.</li>
+
+				<li><strong>Visualization and chart updating:</strong> This was perhaps the most visually challenging aspect of this application. Generating dynamic charts which is responsive with each change was an ordeal.
+After many trials and errors, I singled down on Chart.js for this task.</li>
+
+				<li><strong>Export and Compressing:</strong> This project involves exporting the licenses for the approver and publisher. The challenge was to minimize the memory utilization for the in-memory file write operations. This was done by freeing up the memory after each successful write and moving over to the next line/license. Another task was to compress the files. This obviously meant that the file Object had to be stored in memory to compress or to write the files in a temporary directory and them compress them. The solution involved serializing the file object and writing the compressed file though a bit-stream. This works efficiently in terms of memory and space utilization.</li>
 			</ul>
-			<ul class="skill-list list-flat">
-				<li>Database</li>
-				<li>MySQL / MongoDB / Oracle / Access</li>
-			</ul>
-			<ul class="skill-list list-flat">
-				<li>Framework</li>
-				<li>Laravel / CodeIgniter / Zend / Ruby On Rails</li>
-			</ul>
+			</p>
 		</div>
 	</div>
 
