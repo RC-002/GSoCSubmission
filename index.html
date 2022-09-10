@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GSoC Final Report</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Draco is free PSD &amp; HTML template by @afnizarnur">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/kube.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/custom.min.css" />
+    <link rel="shortcut icon" href="img/favicon.png" />
+	<link href='https://fonts.googleapis.com/css?family=Playfair+Display+SC:700' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+	<style>
+		.intro h1:before {
+			content: 'ROHAN';
+		}
+	</style>
+</head>
+<body>
+	<!-- Navigation -->
+	<div class="main-nav">
+		<div class="container">
+			<header class="group top-nav"><!---
+				<div class="navigation-toggle" data-tools="navigation-toggle" data-target="#navbar-1">
+				    <span class="logo">DRACO</span>
+				</div>-->
+			    <nav id="navbar-1" class="navbar item-nav">
+				    <ul>
+				        <li class="active"><a href="#about">About</a></li>
+				        <li><a href="#requirements/goals">Requirements/Goals</a></li>
+				        <li><a href="#ProjectSummary">Development Summary</a></li>
+						<li><a href="#Coding">Work-status</a></li>
+				        <li><a href="#skills">Future Scope</a></li>
+				    </ul>
+				</nav>
+			</header>
+		</div>
+	</div>
+
+	<!-- Introduction -->
+	<div class="intro section" id="about">
+		<div class="container">
+			<p>GSoC 2022</p>
+			<div class="units-row units-split wrap">
+				<div class="unit-20">
+					<img src="img/ava.jpg" alt="Avatar">
+				</div>
+				<div class="unit-80">
+					<h1>SPDX<br><span id="typed"></span></h1>
+				</div>
+				<p>
+					SPDX had a requirement to have a “Private license management system”. A web-based system for managing license texts; like the SPDX License List but oriented towards other private collections of licenses.
+					<br>
+					<strong>Mentor: </strong> <a href="https://github.com/zvr">Alexios Zavras</a><br>
+					<strong>Contributor: </strong>Rohan Chandrashekar 					
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- About -->
+	<div class="work section second" id="requirements/goals">
+		<div class="container">
+			<h1>Requirements/<br>Goals</h1>
+			<p>
+				The goal of the project would be to create a simple web application for users to upload license texts and automatically create a license repository. Requirements is to 
+				<ol>
+				<li>Create an input form where the Licensing information is entered.</li> 
+				<li>In-built validations to accept clean license data. The list of validations are summarized below: -</li>
+				  <ul>
+					<li>Simplifying according to the SPDX License List Matching Guidelines, v2.1 : Converting the License data into a normalized format.</li>
+					<li>De-Duplication: Avoidance of Duplicate license data, multiple rules to validate and check for supplication.</li>
+					<li>Mandatory field validations: Check for the Mandatory data, accept the license data only in cases where the mandatory data is available.</li>
+				  </ul>
+				<li>Review/approval (and naming) process: Creation of business flows for the below cases:</li>
+				  <ul>
+					<li>Upload & Approval Flow.</li>
+					<li>Reject, Modify and Approve Flow.</li>
+					<li>Publishing Flow:  Publish the Approved licenses in the system.</li>
+				  </ul>
+				<li>Convert Approved Licenses to a specified Standard format: Flow to convert all the Licenses in the system into a standard format.</li>
+				</ol>  
+			  </p>
+			</p>
+		</div>
+	</div>
+
+	<!-- Project Summary -->
+	<div class="award section second" id="ProjectSummary">
+		<div class="container">
+			<h1>Development<br>Summary</h1>
+			We developed a Web based Application with a consideration to use open source Technologies. The Application was created on a Three tier architecture with Light front end tier, all business functionality included in the Middle tier and Database as the Data Tier. 
+              <br>
+			  <ol>
+              <li><strong>Front end Tier:</strong> Front end was developed using the HTML, CSS, JavaScript, jQuery, Boot strap, Chart.js. The images are taken from  <a href="https://www.freepik.com/">Adobe stock.<a></li>
+              <li><strong>Middle Tier:</strong> the Business logic was developed on Python Django.</li>
+              <li><strong>Back End/ Data Layer:</strong> SQLite was the database we choose to persist the data.</li>
+			  </ol>
+              <br>
+             <p>Modules were created in the application with provisioning the User management, License data management, UI Analytics. Each of the Modules is explained in detail in the below sections.</p>
+			 
+				<p>
+					<h3>User Management Module</h3>
+					<br>
+					This module covers the users’ role and users’ maintenance, where we can create, modify, delete user roles and users. We have dedicated roles associated to each functionality in the application. Each Role is associated to multiple functionalities and any user in the system can be associated to more than one Role.
+						<p>
+						Different Roles in the system are:
+						<ol>
+						<li><strong>Super User Role:</strong>
+						This user is created when we install the application would be the super user. There can be ONLY ONE super user in SPDX Application. Super user creates the first Admin user for the application.
+						</li>
+						<li><strong>Admin User Role:</strong>
+						This Role is a privileged Account in SPDX, Admin user can perform all the below tasks in the SPDX Application:
+						<ul>
+							<li>User Role Maintenance: Create, Modify and Delete User Roles.</li>
+							<li>User Maintenance: Create, Modify and Delete Users. Each User in the system would be associated to one or more Roles.</li>
+							<li>Super set of Other Roles: Admin User can act as an Uploader, Approver and Publisher which means all the functionalities available for these roles would be available to Admin role as well.</li>
+							<li>Override Status: Admin Role has access to all the License data and Status and can change it directly in the system at any point in time. He can override the Process and update the license status.</li>
+						</ul>
+						</li>
+						<li><strong>Uploader Role:</strong>
+						User with the uploader Role can perform the following actions:
+						<ul>
+							<li>Upload a new License into the system and submit for approval.</li>
+							<li>View all Licenses in the System.</li>
+							<li>Modify Licenses which are in status New and Rejected.</li>
+						</ul>
+						</li>
+						<li><strong>Approver Role:</strong>
+						User with the Approver Role can perform the following actions:
+						<ul>
+							<li>View all Licenses in the System.</li>
+							<li>Approve a New License/ Rejected License that is submitted for approval.</li>
+						</ul>
+						</li>
+
+						<li><strong>Publisher Role:</strong>
+						User with the Publisher Role can perform the following actions:
+						<ul>
+							<li>View all Licenses in the System.</li>
+							<li>Publish one or more Approved Licenses in the system.</li>
+						</ul>
+						</li>
+					</ol>
+				</p>
+
+				<p>
+					<h3>License Data Management Module</h3>
+					<br>
+					This is core Module which handles the License Management. The Functionalities that are handled by this Module are: -
+						<p>
+						<ol>
+						<li><strong>License Upload</strong>
+							This Module covers the Functionalities around the License Upload Flow. 
+							<img src="img/licenseUpload.png"><br>
+							The list of processes the new License data goes through are detailed as below. Only when a step is successful, data is passed on to the next step, incase of any validation Error the error is thrown back to the user.
+							<ul>
+							<li>Mandatory Field Validations:
+							The Mandatory fields in the License entry form are validated here. 
+								<ul>
+								<li>Canonicalization: 
+								The requirements are not finalized. We are approaching this problem in two steps as part of this version:
+								</li>
+								<li>The license data is simplified according to SPDX License List Matching Guidelines, v2.1 (https://spdx.dev/license-list/matching-guidelines/ ) where Guidelines 3, Guidelines 4, Guidelines 5, Guidelines 8, Guidelines 9 and Guidelines 13 have been implemented. 
+								</li>
+								<li>De-Duplication:
+								This process checks if the license that is uploaded already exists in the system. The validation is based on the License contents and certain key fields
+								</li>
+								</ul>	
+							</li>
+							</ul>
+						</li>
+						<li><strong>License Approve</strong>
+							<img src="img/licenseApprove.png"><br>
+							The list of processes in the License Approval flow is included in this process. User selects the lists of Available licenses for approval, these would include new Licenses submitted for approval OR rejected licenses modified and submitted for approval.
+						</li>
+
+						<li><strong>License Publish</strong>
+							<img src="img/licensePublish.png"><br>
+							This flow includes process to Publish the Approved files in the system. User selects Approved licenses in the system and publishes them. There would be an option to Edit OR Add the Header fields before the data is exported.
+						</li>
+
+						<li><strong>Change Tracking</strong>
+							<img src="img/tracking.png"><br>
+							Every change in the License data is tracked in the system. Every action/ change is associated with a change code and the License file with changes in tracked at the database level. There is an UI to check the list of changes that has undergone for each License file.
+						</li>
+
+					</ol>
+					<br>
+					<h3>UI Analytics Module</h3>
+					<p>
+						This module includes all the Analytical reports included in the system. Each user role has access to specific reports. The reports is explained below:
+						<ul>
+							<li><img src="img/analytics1.png"></li>
+							<li><img src="img/analytics3.png"></li>
+							<li><img src="img/analytics2.png"></li>
+						</ul>
+					</p>
+				</p>
+			</p>
+		</div>
+	</div>
+
+	<!-- Coding – Work Status -->
+	<div class="work section second" id="Coding">
+		<div class="container">
+			<h1>Coding/<br>WOrk-Status</h1>
+			<p>
+				The current Product as Demoed to the Mentor all the code is checked in. The current product requirements and specifications is as agreed with the Mentor. The details as below:
+				<ul>
+				<li><strong>What got commited</strong>
+					<ol>
+						<li>The styling (look and feel) of the application</li>
+						<li>The single flow with role-based data-hiding</li>
+						<li>The admin features were brought down from the Django administrator level to the application level</li>
+						<li>Inclusion of the publisher role</li>
+						<li>Export of licenses</li>
+						<li>Dashboard visualization</li>
+					</ol>
+
+				</li>
+				</ul>  
+			  </p>
+			</p>
+		</div>
+	</div>
+
+	<!-- Technical Skills -->
+	<div class="skills section second" id="skills">
+		<div class="container">
+			<h1>Technical<br>Skills</h1>
+			<ul class="skill-list list-flat">
+				<li>Web Technology</li>
+				<li>HTML / CSS / SASS / PHP / Javascript</li>
+			</ul>
+			<ul class="skill-list list-flat">
+				<li>Database</li>
+				<li>MySQL / MongoDB / Oracle / Access</li>
+			</ul>
+			<ul class="skill-list list-flat">
+				<li>Framework</li>
+				<li>Laravel / CodeIgniter / Zend / Ruby On Rails</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Quote -->
+	<div class="quote">
+		<div class="container text-centered">
+			<h1>Contribute @  </h1>
+		</div>
+	</div>
+
+	<footer>
+		<div class="container">
+			<div class="units-row">
+			    <div class="unit-50">
+			    	<p>By Rohan Chandrashekar</p>
+			    </div>
+			    <div class="unit-50">
+					<ul class="social list-flat right">
+						<li><a href="mailto:rohan.chandrashekar11@gmail.com"><i class="fa fa-send"></i></a></li>
+						<li><a href="https://www.linkedin.com/in/rc02/"><i class="fa fa-linkedin"></i></a></li>
+						<li><a href="https://github.com/RC-002"><i class="fa fa-github"></i></a></li>
+					</ul>
+			    </div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Javascript -->
+	<script src="js/jquery.min.js"></script>
+	<script src="js/typed.min.js"></script>
+    <script src="js/kube.min.js"></script>
+    <script src="js/site.js"></script>
+    <script>
+		function newTyped(){}$(function(){$("#typed").typed({
+		// Change to edit type effect
+		strings: ["License Management System", "Final Report", "Contributions/ Future Scope"],
+
+		typeSpeed:90,backDelay:700,contentType:"html",loop:!0,resetCallback:function(){newTyped()}}),$(".reset").click(function(){$("#typed").typed("reset")})});
+    </script>
+</body>
+</html>
